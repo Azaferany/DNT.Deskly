@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace DNT.Deskly.Web.Middlewares
 {
@@ -14,26 +15,28 @@ namespace DNT.Deskly.Web.Middlewares
 
         private readonly RequestDelegate _next;
         private readonly string _policyValue;
-        private readonly IConfiguration _configuration;
+        private readonly ContentSecurityPolicyConfig _configuration;
 
-        public ContentSecurityPolicyMiddleware(RequestDelegate next, IConfiguration configuration)
+        public ContentSecurityPolicyMiddleware(RequestDelegate next, IConfiguration configuration, IOptions<ContentSecurityPolicyConfig> options)
         {
             _next = next;
-            _configuration = configuration;
+            _configuration = options.Value ?? new ContentSecurityPolicyConfig();
             _policyValue = CreatePolicyValue();
         }
 
         private string CreatePolicyValue()
         {
-            var endpoint = _configuration["ContentSecurityPolicyLogEndpoint"];
-            if (string.IsNullOrWhiteSpace(endpoint))
+            string[] csp;
+            if (_configuration.IsLogEndpointAvailable)
             {
-                throw new NullReferenceException(
-                    "Please set the `ContentSecurityPolicyLogEndpoint` value in `appsettings.json` file.");
-            }
+                if (string.IsNullOrWhiteSpace(_configuration.LogEndpoint))
+                {
+                    throw new NullReferenceException(
+                        "Please set the `ContentSecurityPolicyLogEndpoint` value in `appsettings.json` file.");
+                }
 
-            string[] csp =
-            {
+                csp = new string[]
+                {
                 "default-src 'self' blob:",
                 "style-src 'self' 'unsafe-inline'",
                 "script-src 'self' 'unsafe-inline' 'unsafe-eval' ",
@@ -42,8 +45,23 @@ namespace DNT.Deskly.Web.Middlewares
                 "connect-src 'self'",
                 "media-src 'self'",
                 "object-src 'self' blob:",
-                $"report-uri {endpoint}"
+                $"report-uri {_configuration.LogEndpoint}"
             };
+            }
+            else
+            {
+                csp = new string[]
+                {
+                "default-src 'self' blob:",
+                "style-src 'self' 'unsafe-inline'",
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' ",
+                "font-src 'self'",
+                "img-src 'self' data: blob:",
+                "connect-src 'self'",
+                "media-src 'self'",
+                "object-src 'self' blob:",
+                };
+            }
             return string.Join("; ", csp);
         }
 
