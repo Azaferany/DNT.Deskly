@@ -14,6 +14,7 @@
     <AssemblyName>DNT.Deskly.EFCore</AssemblyName>
     <RootNamespace>DNT.Deskly.EFCore</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageIcon>5454.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -39,6 +40,13 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="System.Text.Json" Version="5.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\..\5454.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   
 </Project>

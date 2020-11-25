@@ -14,6 +14,7 @@
     <AssemblyName>DNT.Deskly.FluentValidation</AssemblyName>
     <RootNamespace>DNT.Deskly.FluentValidation</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageIcon>5454.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -33,6 +34,13 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="9.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\5454.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   
 </Project>
