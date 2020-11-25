@@ -9,11 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNT.Deskly", "src\DNT.Deskl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNT.Deskly.EFCore", "src\DNT.Deskly.EFCore\DNT.Deskly.EFCore.csproj", "{5101CB25-0EDB-4954-9346-C632D90EE206}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNT.Deskly.EFCore.Services", "src\DNT.Deskly.EFCore.Services\DNT.Deskly.EFCore.Services.csproj", "{0D3AFA6B-DDB5-4777-8485-7392D172F7CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNT.Deskly.EFCore.Services", "src\DNT.Deskly.EFCore.Services\DNT.Deskly.EFCore.Services.csproj", "{0D3AFA6B-DDB5-4777-8485-7392D172F7CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNT.Deskly.EFCore.Identity", "src\DNT.Deskly.EFCore.Identity\DNT.Deskly.EFCore.Identity.csproj", "{6C95302D-8FD9-44E6-970D-8EED8E4EF111}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNT.Deskly.EFCore.Identity", "src\DNT.Deskly.EFCore.Identity\DNT.Deskly.EFCore.Identity.csproj", "{6C95302D-8FD9-44E6-970D-8EED8E4EF111}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNT.Deskly.FluentValidation", "src\DNT.Deskly.FluentValidation\DNT.Deskly.FluentValidation.csproj", "{B35FB6F2-C86E-40BF-ACFB-5146DA845685}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNT.Deskly.FluentValidation", "src\DNT.Deskly.FluentValidation\DNT.Deskly.FluentValidation.csproj", "{B35FB6F2-C86E-40BF-ACFB-5146DA845685}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNT.Deskly.Web", "src\DNT.Deskly.Web\DNT.Deskly.Web.csproj", "{AFE88A14-9AE6-45DB-AAA0-6B2B05CBC20E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{B35FB6F2-C86E-40BF-ACFB-5146DA845685}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B35FB6F2-C86E-40BF-ACFB-5146DA845685}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B35FB6F2-C86E-40BF-ACFB-5146DA845685}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFE88A14-9AE6-45DB-AAA0-6B2B05CBC20E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFE88A14-9AE6-45DB-AAA0-6B2B05CBC20E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFE88A14-9AE6-45DB-AAA0-6B2B05CBC20E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFE88A14-9AE6-45DB-AAA0-6B2B05CBC20E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +57,7 @@ Global
 		{0D3AFA6B-DDB5-4777-8485-7392D172F7CA} = {CEADABB4-11D1-4FBB-8354-F1CA1E0E379A}
 		{6C95302D-8FD9-44E6-970D-8EED8E4EF111} = {CEADABB4-11D1-4FBB-8354-F1CA1E0E379A}
 		{B35FB6F2-C86E-40BF-ACFB-5146DA845685} = {CEADABB4-11D1-4FBB-8354-F1CA1E0E379A}
+		{AFE88A14-9AE6-45DB-AAA0-6B2B05CBC20E} = {CEADABB4-11D1-4FBB-8354-F1CA1E0E379A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {995DD56B-8954-4A2D-A4F3-FB61803C3DF5}

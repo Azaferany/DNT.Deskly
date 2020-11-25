@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>DNT.Deskly.Web</Title>
+    <Description>DNT.Deskly is a Lightweight and Extensible Infrastructure for Building Web Applications</Description>
+    <VersionPrefix>1.0</VersionPrefix>
+    <Authors>Ali Zaferany</Authors>
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <PackageProjectUrl>https://github.com/Azaferany/DNT.Deskly</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Azaferany/DNT.Deskly</RepositoryUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageTags>.NETCore;EFCore;Tenancy;Validation;Transaction;Logging</PackageTags>
+    <AssemblyName>DNT.Deskly.Web</AssemblyName>
+    <RootNamespace>DNT.Deskly.Web</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageIcon>5454.png</PackageIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <PlatformTarget>anycpu</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="README.md">
+      <Pack>true</Pack>
+      <PackagePath>README.md</PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\5454.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DNT.Deskly\DNT.Deskly.csproj" />
+  </ItemGroup>
+
+</Project>

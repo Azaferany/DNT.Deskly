@@ -3,7 +3,6 @@ using System.Text;
 using DNT.Deskly.Runtime;
 using DNT.Deskly.Tenancy;
 using DNT.Deskly.Timing;
-using DNTFrameworkCore.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
