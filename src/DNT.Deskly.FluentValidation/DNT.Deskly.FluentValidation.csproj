@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>DNT.Deskly.FluentValidation</Title>
+    <Description>DNT.Deskly is a Lightweight and Extensible Infrastructure for Building Web Applications</Description>
+    <VersionPrefix>1.0</VersionPrefix>
+    <Authors>Ali Zaferany</Authors>
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <PackageProjectUrl>https://github.com/Azaferany/DNT.Deskly</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Azaferany/DNT.Deskly</RepositoryUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageTags>.NETCore;EFCore;Tenancy;Validation;Transaction;Logging</PackageTags>
+    <AssemblyName>DNT.Deskly.FluentValidation</AssemblyName>
+    <RootNamespace>DNT.Deskly.FluentValidation</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <PlatformTarget>anycpu</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="README.md">
+      <Pack>true</Pack>
+      <PackagePath>README.md</PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DNT.Deskly\DNT.Deskly.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="9.3.0" />
+  </ItemGroup>
+  
+</Project>

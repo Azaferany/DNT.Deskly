@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>DNT.Deskly</Title>
+    <Description>DNT.Deskly is a Lightweight and Extensible Infrastructure for Building Web Applications</Description>
+    <VersionPrefix>1.0</VersionPrefix>
+    <Authors>Ali Zaferany</Authors>
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <PackageProjectUrl>https://github.com/Azaferany/DNT.Deskly</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Azaferany/DNT.Deskly</RepositoryUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageTags>.NETCore;EFCore;Tenancy;Validation;Transaction;Logging</PackageTags>
+    <AssemblyName>DNT.Deskly</AssemblyName>
+    <RootNamespace>DNT.Deskly</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <PlatformTarget>anycpu</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="README.md">
+      <Pack>true</Pack>
+      <PackagePath>README.md</PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.4.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+  </ItemGroup>
+</Project>
