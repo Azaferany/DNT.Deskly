@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Title>DNT.Deskly.EFCore.Identity</Title>
     <Description>DNT.Deskly is a Lightweight and Extensible Infrastructure for Building Web Applications</Description>
-    <VersionPrefix>1.0.2</VersionPrefix>
+    <VersionPrefix>1.0.3</VersionPrefix>
     <Authors>Ali Zaferany</Authors>
     <TargetFrameworks>netstandard2.1</TargetFrameworks>
     <LangVersion>latest</LangVersion>
@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="IdentityServer4.EntityFramework.Storage" Version="4.1.1" />
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.0" />
   </ItemGroup>
 
