@@ -22,21 +22,6 @@ namespace DNT.Deskly.Runtime
         string UserName { get; }
 
         /// <summary>
-        /// Gets current User's BranchId or null. It can be null if no user logged in.
-        /// </summary>
-        string BranchId { get; }
-
-        /// <summary>
-        /// Gets current User's BranchName or null. It can be null if no user logged in.
-        /// </summary>
-        string BranchName { get; }
-
-        /// <summary>
-        /// Represents current user is from head-office branch.
-        /// </summary>
-        bool IsHeadOffice { get; }
-
-        /// <summary>
         /// Gets current user's Permissions. It can be null if no user logged in.
         /// </summary>
         IReadOnlyList<string> Permissions { get; }

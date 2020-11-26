@@ -2,7 +2,7 @@ using System;
 using DNT.Deskly.Dependency;
 using FluentValidation;
 
-namespace DNTFrameworkCore.FluentValidation
+namespace DNT.Deskly.FluentValidation
 {
     /// <summary>
     /// Validator factory implementation that uses the asp.net service provider to construct validators.

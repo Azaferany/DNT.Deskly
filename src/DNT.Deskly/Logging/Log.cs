@@ -3,7 +3,7 @@ using DNT.Deskly.Domain;
 
 // ReSharper disable InconsistentNaming
 
-namespace DNTFrameworkCore.Logging
+namespace DNT.Deskly.Logging
 {
     /// <summary>
     /// Represents a log in the logging database.

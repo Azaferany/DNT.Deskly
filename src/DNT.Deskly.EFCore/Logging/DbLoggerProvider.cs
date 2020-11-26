@@ -4,14 +4,13 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DNT.Deskly.Logging;
-using DNTFrameworkCore.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 // ReSharper disable InconsistentNaming
 
-namespace DNTFrameworkCore.EFCore.Logging
+namespace DNT.Deskly.EFCore.Logging
 {
     public static class LoggerFactoryExtensions
     {

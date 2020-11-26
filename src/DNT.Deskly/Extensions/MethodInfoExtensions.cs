@@ -1,9 +1,8 @@
-using DNT.Deskly.Extensions;
 using DNT.Deskly.ReflectionToolkit;
 using DNT.Deskly.Validation;
 using System.Reflection;
 
-namespace DNTFrameworkCore.Extensions
+namespace DNT.Deskly.Extensions
 {
     public static class MethodInfoExtensions
     {

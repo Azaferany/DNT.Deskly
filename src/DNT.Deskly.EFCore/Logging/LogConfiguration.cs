@@ -1,9 +1,9 @@
 ﻿using System;
-using DNTFrameworkCore.Logging;
+using DNT.Deskly.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DNTFrameworkCore.EFCore.Logging
+namespace DNT.Deskly.EFCore.Logging
 {
     public static class ModelBuilderExtensions
     {

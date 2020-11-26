@@ -13,14 +13,6 @@ namespace DNT.Deskly.Runtime
             return session.UserId.To<T>();
         }
 
-        public static T BranchId<T>(this IUserSession session)
-        {
-            if (string.IsNullOrEmpty(session.BranchId))
-                throw new InvalidOperationException("This IUserSession.BranchId is Null or Empty");
-
-            return session.BranchId.To<T>();
-        }
-
         public static T ImpersonatorUserId<T>(this IUserSession session)
         {
             if (string.IsNullOrEmpty(session.ImpersonatorUserId))

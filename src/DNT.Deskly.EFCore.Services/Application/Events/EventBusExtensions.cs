@@ -7,7 +7,7 @@ using DNT.Deskly.EFCore.Services.Application.Events;
 using DNT.Deskly.Eventing;
 using DNT.Deskly.Functional;
 
-namespace DNTFrameworkCore.Application
+namespace DNT.Deskly.Application
 {
     public static class EventBusExtensions
     {

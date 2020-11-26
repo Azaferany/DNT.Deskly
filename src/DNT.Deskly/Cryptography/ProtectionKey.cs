@@ -1,6 +1,6 @@
 ﻿using DNT.Deskly.Domain;
 
-namespace DNTFrameworkCore.Cryptography
+namespace DNT.Deskly.Cryptography
 {
     public class ProtectionKey : IEntity<long>
     {

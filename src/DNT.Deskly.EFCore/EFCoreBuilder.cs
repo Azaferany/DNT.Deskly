@@ -3,13 +3,18 @@ using DNT.Deskly.Configuration;
 using DNT.Deskly.EFCore.Configuration;
 using DNT.Deskly.EFCore.Context;
 using DNT.Deskly.EFCore.Context.Hooks;
+using DNT.Deskly.EFCore.Cryptography;
 using DNT.Deskly.EFCore.Transaction;
 using DNT.Deskly.Transaction;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 
-
-namespace DNTFrameworkCore.EFCore
+namespace DNT.Deskly.EFCore
 {
     /// <summary>
     ///     Nice method to create the EFCore builder
@@ -24,7 +29,7 @@ namespace DNTFrameworkCore.EFCore
         public static EFCoreBuilder AddEFCore<TDbContext>(this IServiceCollection services)
             where TDbContext : DbContext, IUnitOfWork
         {
-            services.AddScoped(provider => (IUnitOfWork) provider.GetRequiredService(typeof(TDbContext)));
+            services.AddScoped(provider => (IUnitOfWork)provider.GetRequiredService(typeof(TDbContext)));
             services.AddTransient<TransactionInterceptor>();
             services.AddScoped<IKeyValueService, KeyValueService>();
             services.AddTransient<IHook, PreUpdateRowVersionHook>();
@@ -73,6 +78,28 @@ namespace DNTFrameworkCore.EFCore
         {
             Services.AddTransient<IHook, PreDeleteDeletedEntityHook>();
             return this;
+        }
+    }
+    public static class DataProtectionExtensions
+    {
+        /// <summary>
+        /// Configures the data protection system to persist keys to an EntityFrameworkCore store
+        /// </summary>
+        /// <param name="builder">The <see cref="IDataProtectionBuilder"/> instance to modify.</param>
+        /// <returns>The value <paramref name="builder"/>.</returns>
+        public static IDataProtectionBuilder PersistKeysToDbContext<TContext>(this IDataProtectionBuilder builder)
+            where TContext : DbContext
+        {
+            builder.Services.AddSingleton<IConfigureOptions<KeyManagementOptions>>(provider =>
+            {
+                var loggerFactory = provider.GetService<ILoggerFactory>() ?? NullLoggerFactory.Instance;
+                return new ConfigureOptions<KeyManagementOptions>(options =>
+                {
+                    options.XmlRepository = new XmlRepository<TContext>(provider, loggerFactory);
+                });
+            });
+
+            return builder;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using DNTFrameworkCore.Cryptography;
+using DNT.Deskly.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

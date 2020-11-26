@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using DNT.Deskly.Dependency;
 
-namespace DNTFrameworkCore.Cryptography
+namespace DNT.Deskly.Cryptography
 {
     public interface ISecurityService : ISingletonDependency
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using DNT.Deskly.Domain;
 using DNT.Deskly.Eventing;
 
-namespace DNTFrameworkCore.Application
+namespace DNT.Deskly.EFCore.Services.Application.Events
 {
     public class DeletingBusinessEvent<TEntity, TKey> : IBusinessEvent
         where TEntity : class, IEntity<TKey> where TKey : IEquatable<TKey>

@@ -21,7 +21,7 @@ namespace DNT.Deskly.EFCore.Transaction
         {
             _uow = uow ?? throw new ArgumentNullException(nameof(uow));
             _logger = Ensure.IsNotNull(loggerFactory, nameof(loggerFactory))
-                .CreateLogger("DNTFrameworkCore.Transaction.Interception");
+                .CreateLogger("DNT.Deskly.Transaction.Interception");
         }
 
         public void Intercept(IInvocation invocation)

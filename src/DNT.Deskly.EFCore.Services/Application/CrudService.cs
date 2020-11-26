@@ -3,49 +3,21 @@ using DNT.Deskly.Domain;
 using DNT.Deskly.EFCore.Context;
 using DNT.Deskly.EFCore.Context.Extensions;
 using DNT.Deskly.Eventing;
-using DNT.Deskly.Exceptions;
 using DNT.Deskly.Functional;
 using DNT.Deskly.GuardToolkit;
 using DNT.Deskly.Transaction;
 using DNT.Deskly.Validation;
-using DNTFrameworkCore.Application;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 
 namespace DNT.Deskly.EFCore.Services.Application
 {
-    //public abstract class CrudService<TEntity, TKey, TModel> :
-    //        CrudService<TEntity, TKey, TModel, TModel>,
-    //        ICrudService<TKey, TModel>
-    //        where TEntity : Entity<TKey>, new()
-    //        where TModel : MasterModel<TKey>
-    //        where TKey : IEquatable<TKey>
-    //{
-    //    protected CrudService(IUnitOfWork uow, IEventBus bus) : base(uow, bus)
-    //    {
-    //    }
-    //}
-
-    //public abstract class CrudService<TEntity, TKey, TReadModel, TModel> :
-    //    CrudService<TEntity, TKey, TReadModel, TModel, FilteredPagedQueryModel>,
-    //    ICrudService<TKey, TReadModel, TModel>
-    //    where TEntity : Entity<TKey>, new()
-    //    where TModel : MasterModel<TKey>
-    //    where TReadModel : ReadModel<TKey>
-    //    where TKey : IEquatable<TKey>
-    //{
-    //    protected CrudService(IUnitOfWork uow, IEventBus bus) : base(uow, bus)
-    //    {
-    //    }
-    //}
-
     public abstract class CrudService<TEntity, TKey> : ApplicationService,
         ICrudService<TKey, TEntity>, IQueryableService<TKey, TEntity>
         where TEntity : class, IEntity<TKey>

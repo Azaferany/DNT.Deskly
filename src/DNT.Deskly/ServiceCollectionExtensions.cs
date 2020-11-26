@@ -23,7 +23,7 @@ namespace DNT.Deskly
     }
 
     /// <summary>
-    /// Configure DNTFrameworkCore services
+    /// Configure  DNT.Deskly services
     /// </summary>
     public sealed class FrameworkBuilder
     {
