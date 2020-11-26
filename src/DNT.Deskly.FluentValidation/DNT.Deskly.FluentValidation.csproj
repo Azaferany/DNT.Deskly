@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Title>DNT.Deskly.FluentValidation</Title>
     <Description>DNT.Deskly is a Lightweight and Extensible Infrastructure for Building Web Applications</Description>
-    <VersionPrefix>1.0.6</VersionPrefix>
+    <VersionPrefix>1.0.7</VersionPrefix>
     <Authors>Ali Zaferany</Authors>
     <TargetFrameworks>netstandard2.1</TargetFrameworks>
     <LangVersion>latest</LangVersion>
