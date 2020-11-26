@@ -86,7 +86,7 @@ namespace DNT.Deskly.EFCore.Context
 
             foreach (var entityType in types.Where(e => typeof(IModificationTracking).IsAssignableFrom(e.ClrType)))
             {
-                builder.Entity(entityType.ClrType.Name)
+                builder.Entity(entityType.ClrType)
                     .Property<DateTime?>(ModifiedDateTime);
 
                 builder.Entity(entityType.ClrType)
