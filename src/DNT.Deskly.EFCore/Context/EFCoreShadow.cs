@@ -67,7 +67,7 @@ namespace DNT.Deskly.EFCore.Context
 
             foreach (var entityType in types.Where(e => typeof(ICreationTracking).IsAssignableFrom(e.ClrType)))
             {
-                builder.Entity(entityType.ClrType)
+                builder.Entity(entityType.ClrType.Name)
                     .Property<DateTime>(CreatedDateTime)
                     .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
 
@@ -86,7 +86,7 @@ namespace DNT.Deskly.EFCore.Context
 
             foreach (var entityType in types.Where(e => typeof(IModificationTracking).IsAssignableFrom(e.ClrType)))
             {
-                builder.Entity(entityType.ClrType)
+                builder.Entity(entityType.ClrType.Name)
                     .Property<DateTime?>(ModifiedDateTime);
 
                 builder.Entity(entityType.ClrType)
