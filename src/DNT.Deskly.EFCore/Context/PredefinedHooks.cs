@@ -83,6 +83,23 @@ namespace DNT.Deskly.EFCore.Context
             metadata.Entry.Property(EFCoreShadow.UserId).CurrentValue = _session.UserId.To<TUserId>();
         }
     }
+    internal sealed class PreUpdateRowLevelSecurityHook<TUserId> : PreUpdateHook<IHasRowLevelSecurity>
+        where TUserId : IEquatable<TUserId>
+    {
+        private readonly IUserSession _session;
+
+        public PreUpdateRowLevelSecurityHook(IUserSession session)
+        {
+            _session = session ?? throw new ArgumentNullException(nameof(session));
+        }
+
+        public override string Name => HookNames.RowLevelSecurity;
+
+        protected override void Hook(IHasRowLevelSecurity entity, HookEntityMetadata metadata, IUnitOfWork uow)
+        {
+            metadata.Entry.Property(EFCoreShadow.UserId).CurrentValue = _session.UserId.To<TUserId>();
+        }
+    }
 
     internal sealed class PreDeleteDeletedEntityHook : PreDeleteHook<IDeletedEntity>
     {

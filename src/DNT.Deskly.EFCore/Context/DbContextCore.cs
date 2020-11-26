@@ -108,7 +108,17 @@ namespace DNT.Deskly.EFCore.Context
         {
             var row = Entry(entity).ToDictionary(p => p.Metadata.Name != EFCoreShadow.Hash &&
                                                       !p.Metadata.ValueGenerated.HasFlag(ValueGenerated.OnUpdate) &&
-                                                      !p.Metadata.IsShadowProperty());
+                                                      (!p.Metadata.IsShadowProperty() || 
+                                                            (p.Metadata.Name != EFCoreShadow.CreatedByUserId ||
+                                                             p.Metadata.Name != EFCoreShadow.CreatedByIP ||
+                                                             p.Metadata.Name != EFCoreShadow.CreatedByBrowserName ||
+                                                             p.Metadata.Name != EFCoreShadow.CreatedDateTime ||
+                                                             p.Metadata.Name != EFCoreShadow.ModifiedByBrowserName ||
+                                                             p.Metadata.Name != EFCoreShadow.ModifiedByIP ||
+                                                             p.Metadata.Name != EFCoreShadow.ModifiedDateTime ||
+                                                             p.Metadata.Name != EFCoreShadow.ModifiedByUserId )
+                                                       )
+                                                 );
             return EntityHash<TEntity>(row);
         }
 

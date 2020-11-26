@@ -58,6 +58,7 @@ namespace DNT.Deskly.EFCore
         public EFCoreBuilder WithRowLevelSecurityHook<TUserId>() where TUserId : IEquatable<TUserId>
         {
             Services.AddTransient<IHook, PreInsertRowLevelSecurityHook<TUserId>>();
+            Services.AddTransient<IHook, PreUpdateRowLevelSecurityHook<TUserId>>();
             return this;
         }
 
