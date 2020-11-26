@@ -58,7 +58,8 @@ namespace DNT.Deskly.Extensions
             return principal.HasClaim(UserClaimTypes.IsHeadTenant, "true");
         }
         public static IReadOnlyList<string> FindPermissions(this ClaimsPrincipal principal,
-            string permissionClaimName, string packedPermissionClaimName, string packingSymbol)
+            string permissionClaimName,bool isPackedPermissionAvailable,
+            string packedPermissionClaimName, string packingSymbol)
         {
             if (principal == null) throw new ArgumentNullException(nameof(principal));
 
@@ -66,12 +67,14 @@ namespace DNT.Deskly.Extensions
                 .Where(c => c.Type.Equals(permissionClaimName, StringComparison.OrdinalIgnoreCase))
                 .Select(c => c.Value)
                 .ToList();
+            if (isPackedPermissionAvailable && !packedPermissionClaimName.IsNullOrEmpty())
+            {
+                var packedPermissions = principal.Claims.Where(c =>
+                        c.Type.Equals(packedPermissionClaimName, StringComparison.OrdinalIgnoreCase))
+                    .SelectMany(c => c.Value.UnpackFromString(packingSymbol));
 
-            var packedPermissions = principal.Claims.Where(c =>
-                    c.Type.Equals(packedPermissionClaimName, StringComparison.OrdinalIgnoreCase))
-                .SelectMany(c => c.Value.UnpackFromString(packingSymbol));
-
-            permissions.AddRange(packedPermissions);
+                permissions.AddRange(packedPermissions);
+            }
 
             return permissions.AsReadOnly();
         }

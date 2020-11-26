@@ -32,7 +32,7 @@ namespace DNT.Deskly.Web.Runtime
 
         //public IReadOnlyList<string> Permissions =>   TODO : add some inject 
         // TODO : add some inject
-        public IReadOnlyList<string> Permissions => Principal?.FindPermissions(_options.PermissionClaimName, _options.PackedPermissionClaimName, _options.PackingSymbol);
+        public IReadOnlyList<string> Permissions => Principal?.FindPermissions(_options.PermissionClaimName,_options.IsPackedPermissionAvailable ,_options.PackedPermissionClaimName, _options.PackingSymbol);
         public IReadOnlyList<string> Roles => Principal?.FindRoles();
         public IReadOnlyList<Claim> Claims => Principal?.Claims.ToList();
         public string UserDisplayName => Principal?.FindUserDisplayName();

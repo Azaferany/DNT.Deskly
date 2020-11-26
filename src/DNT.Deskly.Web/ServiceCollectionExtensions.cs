@@ -2,14 +2,13 @@ using System;
 using DNT.Deskly.Logging;
 using DNT.Deskly.Runtime;
 using DNT.Deskly.Web.Runtime;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DNT.Deskly.Web
 {
     public static class ServiceCollectionExtensions
     {
-        public static WebFrameworkBuilder AddWebFramework(this IServiceCollection services, Action<FileLoggerOptions> configure)
+        public static WebFrameworkBuilder AddWebFramework(this IServiceCollection services, Action<UserSessionOptions> configure)
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
             if (configure == null) throw new ArgumentNullException(nameof(configure));
