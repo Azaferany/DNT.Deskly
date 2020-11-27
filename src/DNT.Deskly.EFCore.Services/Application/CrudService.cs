@@ -18,10 +18,18 @@ using System.Threading.Tasks;
 
 namespace DNT.Deskly.EFCore.Services.Application
 {
+    public abstract class CrudService<TEntity> : CrudService<TEntity, int>
+        where TEntity : class, IEntity
+    {
+        protected CrudService(IUnitOfWork uow, IEventBus bus) : base(uow, bus)
+        {
+        }
+    }
+
     public abstract class CrudService<TEntity, TKey> : ApplicationService,
-        ICrudService<TKey, TEntity>, IQueryableService<TKey, TEntity>
-        where TEntity : class, IEntity<TKey>
-        where TKey : IEquatable<TKey>
+    ICrudService<TKey, TEntity>, IQueryableService<TKey, TEntity>
+    where TEntity : class, IEntity<TKey>
+    where TKey : IEquatable<TKey>
     {
         protected readonly DbSet<TEntity> EntitySet;
         protected readonly IEventBus EventBus;
@@ -79,7 +87,7 @@ namespace DNT.Deskly.EFCore.Services.Application
 
         public Task<IReadOnlyList<TEntity>> FindListAsync(CancellationToken cancellationToken = default)
         {
-            return FindAsync(_ => true,cancellationToken);
+            return FindAsync(_ => true, cancellationToken);
         }
 
 
@@ -159,7 +167,7 @@ namespace DNT.Deskly.EFCore.Services.Application
         {
             Guard.ArgumentNotNull(entity, nameof(entity));
 
-            return DeleteAsync(new[] { entity },cancellationToken);
+            return DeleteAsync(new[] { entity }, cancellationToken);
         }
 
         [Transactional]
@@ -188,8 +196,8 @@ namespace DNT.Deskly.EFCore.Services.Application
         [SkipValidation]
         public async Task<Result> DeleteAsync(TKey id, CancellationToken cancellationToken = default)
         {
-            var model = await FindAsync(id,cancellationToken);
-            if (model.HasValue) return await DeleteAsync(model.Value,cancellationToken);
+            var model = await FindAsync(id, cancellationToken);
+            if (model.HasValue) return await DeleteAsync(model.Value, cancellationToken);
 
             return Ok();
         }
