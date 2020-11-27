@@ -1,5 +1,6 @@
 using System;
 using DNT.Deskly.Configuration;
+using DNT.Deskly.Dependency;
 using DNT.Deskly.EFCore.Configuration;
 using DNT.Deskly.EFCore.Context;
 using DNT.Deskly.EFCore.Context.Hooks;
@@ -8,6 +9,7 @@ using DNT.Deskly.EFCore.Transaction;
 using DNT.Deskly.Transaction;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -97,6 +99,15 @@ namespace DNT.Deskly.EFCore
                 return new ConfigureOptions<KeyManagementOptions>(options =>
                 {
                     options.XmlRepository = new XmlRepository<TContext>(provider, loggerFactory);
+                });
+            });
+            builder.Services.AddSingleton<IXmlRepository, XmlRepository<TContext>>();
+            builder.Services.AddSingleton<IConfigureOptions<KeyManagementOptions>>(serviceProvider =>
+            {
+                return new ConfigureOptions<KeyManagementOptions>(options =>
+                {
+                    serviceProvider.RunScopedService<IXmlRepository>(xmlRepository =>
+                        options.XmlRepository = xmlRepository);
                 });
             });
 
