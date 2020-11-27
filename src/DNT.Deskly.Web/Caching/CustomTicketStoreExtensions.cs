@@ -7,7 +7,7 @@ namespace DNT.Deskly.Web.Caching
 {
     public static class CustomTicketStoreExtensions
     {
-        public static IServiceCollection AddDistributSqlServerCache(
+        public static IServiceCollection AddCustomDistributSqlServerCache(
             this IServiceCollection services, Action<SqlServerCacheOptions> setupAction)
         {
             // To manage large identity cookies
@@ -15,7 +15,7 @@ namespace DNT.Deskly.Web.Caching
             services.AddScoped<ITicketStore, DistributedCacheTicketStore>();
             return services;
         }
-        public static IServiceCollection AddDistributedMemoryCache(this IServiceCollection services)
+        public static IServiceCollection AddCustomDistributedMemoryCache(this IServiceCollection services)
         {
             services.AddMemoryCache();
             services.AddScoped<ITicketStore, MemoryCacheTicketStore>();
