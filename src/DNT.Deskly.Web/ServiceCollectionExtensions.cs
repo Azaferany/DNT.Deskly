@@ -39,10 +39,10 @@ namespace DNT.Deskly.Web
         /// <summary>
         /// Adds IMvcActionsDiscoveryService to IServiceCollection.
         /// </summary>
-        public WebFrameworkBuilder AddMvcActionsDiscoveryService(WebFrameworkBuilder builder)
+        public WebFrameworkBuilder AddMvcActionsDiscoveryService()
         {
-            builder.Services.AddSingleton<IMvcActionsDiscoveryService, MvcActionsDiscoveryService>();
-            return builder;
+            Services.AddSingleton<IMvcActionsDiscoveryService, MvcActionsDiscoveryService>();
+            return this;
         }
 
     }
