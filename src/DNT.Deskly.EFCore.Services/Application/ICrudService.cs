@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace DNT.Deskly.EFCore.Services.Application
 {
     public interface ICrudService<TEntity> : ICrudService<int, TEntity>, IApplicationService
-    where TEntity : class, IEntity<int>
+    where TEntity : class, IEntity
     { }
     public interface ICrudService<in TKey, TEntity> : IApplicationService
     where TEntity : class, IEntity<TKey>

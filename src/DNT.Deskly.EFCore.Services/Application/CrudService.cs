@@ -18,7 +18,8 @@ using System.Threading.Tasks;
 
 namespace DNT.Deskly.EFCore.Services.Application
 {
-    public class CrudService<TEntity> : CrudService<TEntity, int>
+    public class CrudService<TEntity> : CrudService<int, TEntity>,
+        ICrudService<TEntity>, IQueryableService<TEntity>
         where TEntity : class, IEntity
     {
         protected CrudService(IUnitOfWork uow, IEventBus bus) : base(uow, bus)
@@ -26,7 +27,7 @@ namespace DNT.Deskly.EFCore.Services.Application
         }
     }
 
-    public class CrudService<TEntity, TKey> : ApplicationService,
+    public class CrudService <TKey, TEntity> : ApplicationService,
     ICrudService<TKey, TEntity>, IQueryableService<TKey, TEntity>
     where TEntity : class, IEntity<TKey>
     where TKey : IEquatable<TKey>
