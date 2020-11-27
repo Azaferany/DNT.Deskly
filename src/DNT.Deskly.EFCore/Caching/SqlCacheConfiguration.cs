@@ -1,13 +1,11 @@
 ﻿using System;
 using DNT.Deskly.Caching;
-using DNT.Deskly.GuardToolkit;
-using DNTFrameworkCore.Caching;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Caching.SqlServer;
 using Microsoft.Extensions.Options;
 
-namespace DNTFrameworkCore.EFCore.Caching
+namespace DNT.Deskly.EFCore.Caching
 {
     public static class ModelBuilderExtensions
     {
