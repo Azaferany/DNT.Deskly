@@ -45,7 +45,7 @@ namespace DNT.Deskly.Web.Mvc
             var actionDescriptors = actionDescriptorCollectionProvider.ActionDescriptors.Items;
             foreach (var actionDescriptor in actionDescriptors)
             {
-                if (!(actionDescriptor is ControllerActionDescriptor descriptor))
+                if (actionDescriptor is not ControllerActionDescriptor descriptor)
                 {
                     continue;
                 }
