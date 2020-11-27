@@ -29,9 +29,6 @@ namespace DNT.Deskly.Web.Runtime
         public bool IsAuthenticated => Principal?.Identity.IsAuthenticated ?? false;
         public string UserId => Principal?.FindUserId();
         public string UserName => Principal?.FindUserName();
-
-        //public IReadOnlyList<string> Permissions =>   TODO : add some inject 
-        // TODO : add some inject
         public IReadOnlyList<string> Permissions => Principal?.FindPermissions(_options.PermissionClaimName,_options.IsPackedPermissionAvailable ,_options.PackedPermissionClaimName, _options.PackingSymbol);
         public IReadOnlyList<string> Roles => Principal?.FindRoles();
         public IReadOnlyList<Claim> Claims => Principal?.Claims.ToList();

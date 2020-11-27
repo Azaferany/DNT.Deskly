@@ -1,10 +1,9 @@
 ﻿using System;
-using DNT.Deskly.Web.Caching;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Caching.SqlServer;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ASPNETCoreIdentitySample.IocConfig
+namespace DNT.Deskly.Web.Caching
 {
     public static class CustomTicketStoreExtensions
     {
