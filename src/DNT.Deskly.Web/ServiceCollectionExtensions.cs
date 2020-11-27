@@ -1,6 +1,8 @@
 using System;
 using DNT.Deskly.Logging;
+using DNT.Deskly.Mvc;
 using DNT.Deskly.Runtime;
+using DNT.Deskly.Web.Mvc;
 using DNT.Deskly.Web.Runtime;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,13 +30,20 @@ namespace DNT.Deskly.Web
     /// </summary>
     public class WebFrameworkBuilder
     {
-        public IServiceCollection Services { get; }
+        private IServiceCollection Services { get; }
 
         public WebFrameworkBuilder(IServiceCollection services)
         {
             Services = services;
         }
-
+        /// <summary>
+        /// Adds IMvcActionsDiscoveryService to IServiceCollection.
+        /// </summary>
+        public WebFrameworkBuilder AddMvcActionsDiscoveryService(WebFrameworkBuilder builder)
+        {
+            builder.Services.AddSingleton<IMvcActionsDiscoveryService, MvcActionsDiscoveryService>();
+            return builder;
+        }
 
     }
 }

@@ -17,21 +17,6 @@ using DNT.Deskly.Mvc;
 namespace DNT.Deskly.Web.Mvc
 {  
     /// <summary>
-    /// MvcActions Discovery Service Extensions
-    /// </summary>
-    public static class MvcActionsDiscoveryServiceExtensions
-    {
-        /// <summary>
-        /// Adds IMvcActionsDiscoveryService to IServiceCollection.
-        /// </summary>
-        public static IServiceCollection AddMvcActionsDiscoveryService(this IServiceCollection services)
-        {
-            services.AddSingleton<IMvcActionsDiscoveryService, MvcActionsDiscoveryService>();
-            return services;
-        }
-    }
-
-    /// <summary>
     /// MvcActions Discovery Service
     /// </summary>
     public class MvcActionsDiscoveryService : IMvcActionsDiscoveryService
