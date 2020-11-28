@@ -6,11 +6,11 @@ using System.Text;
 
 namespace DNT.Deskly.EFCore.Services.Application
 {
-    public interface IQueryableService<TEntity> : IQueryableService<int, TEntity>
+    public interface IQueryableService<TEntity>
     where TEntity : class, IEntity<int>
     {
     }
-    public interface IQueryableService<in TKey, TEntity> : ICrudService<TKey, TEntity>
+    public interface IQueryableService<TKey, TEntity> 
         where TEntity : class, IEntity<TKey>
         where TKey : IEquatable<TKey>
     {
