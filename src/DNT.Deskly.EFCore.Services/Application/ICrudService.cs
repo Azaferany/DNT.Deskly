@@ -1,4 +1,5 @@
 ﻿using DNT.Deskly.Application;
+using DNT.Deskly.Dependency;
 using DNT.Deskly.Domain;
 using DNT.Deskly.Functional;
 using System;
@@ -8,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace DNT.Deskly.EFCore.Services.Application
 {
-    public interface ICrudService<TEntity> : ICrudService<int, TEntity>, IApplicationService
-    where TEntity : class, IEntity
-    { }
-    public interface ICrudService<in TKey, TEntity> : IApplicationService
+    //public interface ICrudService<TEntity> : ICrudService<int, TEntity>, IApplicationService
+    //where TEntity : class, IEntity
+    //{ }
+    public interface ICrudService<TKey, TEntity> : IApplicationService, IScopedDependency
     where TEntity : class, IEntity<TKey>
     where TKey : IEquatable<TKey>
     {

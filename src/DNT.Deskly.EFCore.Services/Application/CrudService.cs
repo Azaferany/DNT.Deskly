@@ -18,14 +18,14 @@ using System.Threading.Tasks;
 
 namespace DNT.Deskly.EFCore.Services.Application
 {
-    public class CrudService<TEntity> : CrudService<int, TEntity>,
-        ICrudService<TEntity>, IQueryableService<TEntity>
-        where TEntity : class, IEntity
-    {
-        protected CrudService(IUnitOfWork uow, IEventBus bus) : base(uow, bus)
-        {
-        }
-    }
+    //public class CrudService<TEntity> : CrudService<int, TEntity>,
+    //    ICrudService<TEntity>, IQueryableService<TEntity>
+    //    where TEntity : class, IEntity
+    //{
+    //    protected CrudService(IUnitOfWork uow, IEventBus bus) : base(uow, bus)
+    //    {
+    //    }
+    //}
 
     public class CrudService <TKey, TEntity> : ApplicationService,
     ICrudService<TKey, TEntity>, IQueryableService<TKey, TEntity>
@@ -36,7 +36,7 @@ namespace DNT.Deskly.EFCore.Services.Application
         protected readonly IEventBus EventBus;
         protected readonly IUnitOfWork UnitOfWork;
 
-        protected CrudService(IUnitOfWork uow, IEventBus bus)
+        public CrudService(IUnitOfWork uow, IEventBus bus)
         {
             UnitOfWork = uow ?? throw new ArgumentNullException(nameof(uow));
             EventBus = bus ?? throw new ArgumentNullException(nameof(bus));
