@@ -17,10 +17,17 @@ namespace DNT.Deskly.Validation.Interception
         {
             var validatorType = typeof(IModelValidator<>).MakeGenericType(validatingObject.GetType());
 
-            if (!(_provider.GetService(validatorType) is IModelValidator validator))
+            if (_provider.GetService(validatorType) is not IModelValidator validator)
                 return Enumerable.Empty<ValidationFailure>();
 
             var failures = validator.Validate(validatorCaller, validatingObject);
+
+            validatorType = typeof(IModelValidator<,>).MakeGenericType(validatingObject.GetType(), validatorCaller.GetType());
+
+            // CALL FILTERED validator BY validatorCaller
+            if (_provider.GetService(validatorType) is not IModelValidator filteredValidator)
+                return Enumerable.Empty<ValidationFailure>();
+            failures.ToList().AddRange(filteredValidator.Validate(validatorCaller, validatingObject));
 
             return failures;
         }
