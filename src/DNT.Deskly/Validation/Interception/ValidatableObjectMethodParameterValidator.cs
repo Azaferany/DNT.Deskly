@@ -7,9 +7,9 @@ namespace DNT.Deskly.Validation.Interception
 {
     internal sealed class ValidatableObjectMethodParameterValidator : IMethodParameterValidator
     {
-        public IEnumerable<ValidationFailure> Validate(object validatingObject)
+        public IEnumerable<ValidationFailure> Validate(object validatorCaller, object validatingObject)
         {
-            if (!(validatingObject is IValidatableObject validatable))
+            if (validatingObject is not IValidatableObject validatable)
             {
                 return Enumerable.Empty<ValidationFailure>();
             }

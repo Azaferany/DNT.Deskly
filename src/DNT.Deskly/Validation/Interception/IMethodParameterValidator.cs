@@ -8,6 +8,6 @@ namespace DNT.Deskly.Validation.Interception
     /// </summary>
     public interface IMethodParameterValidator : ITransientDependency
     {
-        IEnumerable<ValidationFailure> Validate(object validatingObject);
+        IEnumerable<ValidationFailure> Validate(object validatorCaller, object validatingObject);
     }
 }

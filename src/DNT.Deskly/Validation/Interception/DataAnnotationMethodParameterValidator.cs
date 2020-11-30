@@ -16,7 +16,7 @@ namespace DNT.Deskly.Validation.Interception
             _provider = provider ?? throw new ArgumentNullException();
         }
 
-        public IEnumerable<ValidationFailure> Validate(object validatingObject)
+        public IEnumerable<ValidationFailure> Validate(object validatorCaller, object validatingObject)
         {
             var failures = new List<ValidationFailure>();
 

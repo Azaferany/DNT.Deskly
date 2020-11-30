@@ -33,7 +33,7 @@ namespace DNT.Deskly.Validation.Interception
             _failures = new List<ValidationFailure>();
         }
 
-        public IEnumerable<ValidationFailure> Validate(MethodInfo method, object[] parameterValues)
+        public IEnumerable<ValidationFailure> Validate(object validatorCaller, MethodInfo method, object[] parameterValues)
         {
             Guard.ArgumentNotNull(method, nameof(method));
             Guard.ArgumentNotNull(parameterValues, nameof(parameterValues));
@@ -49,7 +49,7 @@ namespace DNT.Deskly.Validation.Interception
 
             for (var i = 0; i < parameters.Length; i++)
             {
-                ValidateMethodParameter(parameters[i], parameterValues[i]);
+                ValidateMethodParameter(validatorCaller, parameters[i], parameterValues[i]);
             }
 
             return _failures;
@@ -60,7 +60,7 @@ namespace DNT.Deskly.Validation.Interception
         /// </summary>
         /// <param name="parameterInfo">Parameter of the method to validate</param>
         /// <param name="parameterValue">Value to validate</param>
-        private void ValidateMethodParameter(ParameterInfo parameterInfo, object parameterValue)
+        private void ValidateMethodParameter(object validatorCaller, ParameterInfo parameterInfo, object parameterValue)
         {
             if (parameterValue == null)
             {
@@ -74,10 +74,10 @@ namespace DNT.Deskly.Validation.Interception
                 return;
             }
 
-            ValidateObjectRecursively(parameterValue, 1);
+            ValidateObjectRecursively(validatorCaller, parameterValue, 1);
         }
 
-        private void ValidateObjectRecursively(object validatingObject, int depth)
+        private void ValidateObjectRecursively(object validatorCaller, object validatingObject, int depth)
         {
             if (depth > MaxRecursiveParameterValidationDepth)
             {
@@ -99,14 +99,14 @@ namespace DNT.Deskly.Validation.Interception
                 return;
             }
 
-            SetValidationErrors(validatingObject);
+            SetValidationErrors(validatorCaller, validatingObject);
 
             // Validate items of enumerable
             if (IsEnumerable(validatingObject))
             {
                 foreach (var item in (IEnumerable) validatingObject)
                 {
-                    ValidateObjectRecursively(item, depth + 1);
+                    ValidateObjectRecursively(validatorCaller, item, depth + 1);
                 }
             }
 
@@ -120,15 +120,15 @@ namespace DNT.Deskly.Validation.Interception
                     continue;
                 }
 
-                ValidateObjectRecursively(property.GetValue(validatingObject), depth + 1);
+                ValidateObjectRecursively(validatorCaller, property.GetValue(validatingObject), depth + 1);
             }
         }
 
-        private void SetValidationErrors(object validatingObject)
+        private void SetValidationErrors(object validatorCaller, object validatingObject)
         {
             foreach (var validator in _validators)
             {
-                var failures = validator.Validate(validatingObject);
+                var failures = validator.Validate(validatorCaller, validatingObject);
                 _failures.AddRange(failures);
             }
         }

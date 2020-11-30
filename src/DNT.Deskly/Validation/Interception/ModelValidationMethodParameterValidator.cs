@@ -13,14 +13,14 @@ namespace DNT.Deskly.Validation.Interception
             _provider = provider ?? throw new ArgumentNullException(nameof(provider));
         }
 
-        public IEnumerable<ValidationFailure> Validate(object validatingObject)
+        public IEnumerable<ValidationFailure> Validate(object validatorCaller, object validatingObject)
         {
             var validatorType = typeof(IModelValidator<>).MakeGenericType(validatingObject.GetType());
 
             if (!(_provider.GetService(validatorType) is IModelValidator validator))
                 return Enumerable.Empty<ValidationFailure>();
 
-            var failures = validator.Validate(validatingObject);
+            var failures = validator.Validate(validatorCaller, validatingObject);
 
             return failures;
         }

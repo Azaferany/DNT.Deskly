@@ -9,30 +9,16 @@ namespace DNT.Deskly.EFCore.Caching
 {
     public static class ModelBuilderExtensions
     {
-        public static void ApplySqlCacheConfiguration(this ModelBuilder builder)
+        public static void ApplySSqlCacheConfiguration(this ModelBuilder builder, string tableName = "Cache", string schema = "dbo")
         {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
-            builder.ApplyConfigurationsFromAssembly(typeof(CacheConfiguration).Assembly, x => x == typeof(CacheConfiguration));
+            builder.Entity<Cache>().Property(e => e.Id).HasMaxLength(449);
+            builder.Entity<Cache>().Property(e => e.Value).IsRequired();
 
-        }
-    }
+            builder.Entity<Cache>().HasIndex(e => e.ExpiresAtTime).HasDatabaseName("IX_Cache_ExpiresAtTime");
 
-    public class CacheConfiguration : IEntityTypeConfiguration<Cache>
-    {
-        private readonly SqlServerCacheOptions _options;
-        public CacheConfiguration(IOptions<SqlServerCacheOptions> options)
-        {
-            _ = options ?? throw new ArgumentNullException(nameof(options), "Should SqlServerCacheOptions Injected");
-            _options = options.Value ?? throw new ArgumentNullException(nameof(SqlServerCacheOptions), "Should SqlServerCacheOptions Injected");
-        }
-        public void Configure(EntityTypeBuilder<Cache> builder)
-        {
-            builder.Property(e => e.Id).HasMaxLength(449);
-            builder.Property(e => e.Value).IsRequired();
+            builder.Entity<Cache>().ToTable(name: tableName, schema: schema);
 
-            builder.HasIndex(e => e.ExpiresAtTime).HasDatabaseName("IX_Cache_ExpiresAtTime");
-
-            builder.ToTable(name: _options.TableName, schema: _options.SchemaName);
         }
     }
 }

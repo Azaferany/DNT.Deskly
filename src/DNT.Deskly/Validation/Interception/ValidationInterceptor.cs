@@ -44,7 +44,7 @@ namespace DNT.Deskly.Validation.Interception
             _logger.LogInformation(
                 $"Starting Validation: {invocation.TargetType?.FullName}.{method.Name}");
             
-            var failures = _validator.Validate(method, invocation.Arguments);
+            var failures = _validator.Validate(invocation.Proxy, method, invocation.Arguments);
             var result = failures.ToResult();
 
             if (!result.Failed)

@@ -15,13 +15,20 @@ namespace DNT.Deskly.FluentValidation
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
 
-        public override IEnumerable<ValidationFailure> Validate(T model)
+        public override IEnumerable<ValidationFailure> Validate(object validatorCaller, T model)
         {
+            //TODO: inject validator user to validate class
             var fvValidator = _factory.GetValidator<T>();
 
             if (fvValidator == null) return Enumerable.Empty<ValidationFailure>();
-
-            var validationResult = fvValidator.Validate(model);
+            if (fvValidator.GetType().IsGenericType)
+            {
+                if (fvValidator.GetType() == typeof(FluentModelValidator<>).MakeGenericType(fvValidator.GetType().GenericTypeArguments))
+                {
+                    fvValidator.GetType().GetProperty("ValidatorCaller").SetValue(fvValidator, validatorCaller);
+                }
+            }
+                var validationResult = fvValidator.Validate(model);
             var failures = validationResult.Errors
                 .Select(e => new ValidationFailure(e.PropertyName, e.ErrorMessage))
                 .ToList();

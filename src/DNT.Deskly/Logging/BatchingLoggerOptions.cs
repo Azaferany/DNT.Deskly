@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace DNT.Deskly.Logging
@@ -7,6 +8,9 @@ namespace DNT.Deskly.Logging
         private int? _batchSize = 32;
         private int? _backgroundQueueSize;
         private TimeSpan _flushPeriod = TimeSpan.FromSeconds(1);
+
+        public LogLevel LogLevel { get; set; } 
+
 
         /// <summary>
         /// Gets or sets the period after which logs will be flushed to the store.

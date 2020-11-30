@@ -7,7 +7,7 @@ namespace DNT.Deskly.Validation
 {
     public abstract class ModelValidator<TModel> : IModelValidator<TModel>
     {
-        IEnumerable<ValidationFailure> IModelValidator.Validate(object model)
+        IEnumerable<ValidationFailure> IModelValidator.Validate(object validatorCaller, object model)
         {
             Guard.ArgumentNotNull(model, nameof(model));
 
@@ -17,7 +17,7 @@ namespace DNT.Deskly.Validation
                     $"Cannot validate instances of type '{model.GetType().GetTypeInfo().Name}'. This validator can only validate instances of type '{typeof(TModel).Name}'.");
             }
 
-            return Validate((TModel) model);
+            return Validate(validatorCaller, (TModel) model);
         }
 
         bool IModelValidator.CanValidateInstancesOfType(Type type)
@@ -25,6 +25,6 @@ namespace DNT.Deskly.Validation
             return typeof(TModel).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo());
         }
 
-        public abstract IEnumerable<ValidationFailure> Validate(TModel model);
+        public abstract IEnumerable<ValidationFailure> Validate(object validatorCaller, TModel model);
     }
 }

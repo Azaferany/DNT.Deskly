@@ -11,12 +11,12 @@ namespace DNT.Deskly.Validation
             return true;
         }
 
-        public IEnumerable<ValidationFailure> Validate(TModel model)
+        public IEnumerable<ValidationFailure> Validate(object validatorCaller, TModel model)
         {
             return Enumerable.Empty<ValidationFailure>();
         }
 
-        public IEnumerable<ValidationFailure> Validate(object model)
+        public IEnumerable<ValidationFailure> Validate(object validatorCaller, object model)
         {
             return Enumerable.Empty<ValidationFailure>();
         }
