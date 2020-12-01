@@ -9,7 +9,7 @@ namespace DNT.Deskly.EFCore.Caching
 {
     public static class ModelBuilderExtensions
     {
-        public static void ApplySSqlCacheConfiguration(this ModelBuilder builder, string tableName = "Cache", string schema = "dbo")
+        public static void ApplySqlCacheConfiguration(this ModelBuilder builder, string tableName = "Cache", string schema = "dbo")
         {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
             builder.Entity<Cache>().Property(e => e.Id).HasMaxLength(449);
