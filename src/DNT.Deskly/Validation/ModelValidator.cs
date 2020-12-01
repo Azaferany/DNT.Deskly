@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 using DNT.Deskly.GuardToolkit;
 
 namespace DNT.Deskly.Validation
@@ -8,7 +9,7 @@ namespace DNT.Deskly.Validation
     public abstract class ModelValidator<TModel, TValidatorCaller> : IModelValidator<TModel, TValidatorCaller>
         where TValidatorCaller : class
     {
-        IEnumerable<ValidationFailure> IModelValidator.Validate(object validatorCaller, object model)
+        async Task<IEnumerable<ValidationFailure>> IModelValidator.Validate(object validatorCaller, object model)
         {
             Guard.ArgumentNotNull(model, nameof(model));
 
@@ -18,7 +19,7 @@ namespace DNT.Deskly.Validation
                     $"Cannot validate instances of type '{model.GetType().GetTypeInfo().Name}'. This validator can only validate instances of type '{typeof(TModel).Name}'.");
             }
 
-            return Validate(validatorCaller as TValidatorCaller, (TModel) model);
+            return await Validate((TValidatorCaller) validatorCaller, (TModel) model);
         }
 
         bool IModelValidator.CanValidateInstancesOfType(Type type)
@@ -26,11 +27,11 @@ namespace DNT.Deskly.Validation
             return typeof(TModel).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo());
         }
 
-        public abstract IEnumerable<ValidationFailure> Validate(TValidatorCaller validatorCaller, TModel model);
+        public abstract Task<IEnumerable<ValidationFailure>> Validate(TValidatorCaller validatorCaller, TModel model);
     }
     public abstract class ModelValidator<TModel> : IModelValidator<TModel>
     {
-        IEnumerable<ValidationFailure> IModelValidator.Validate(object validatorCaller, object model)
+        async Task<IEnumerable<ValidationFailure>> IModelValidator.Validate(object validatorCaller, object model)
         {
             Guard.ArgumentNotNull(model, nameof(model));
 
@@ -40,7 +41,7 @@ namespace DNT.Deskly.Validation
                     $"Cannot validate instances of type '{model.GetType().GetTypeInfo().Name}'. This validator can only validate instances of type '{typeof(TModel).Name}'.");
             }
 
-            return Validate(validatorCaller, (TModel)model);
+            return await Validate(validatorCaller, (TModel)model);
         }
 
         bool IModelValidator.CanValidateInstancesOfType(Type type)
@@ -48,6 +49,6 @@ namespace DNT.Deskly.Validation
             return typeof(TModel).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo());
         }
 
-        public abstract IEnumerable<ValidationFailure> Validate(object validatorCaller, TModel model);
+        public abstract Task<IEnumerable<ValidationFailure>> Validate(object validatorCaller, TModel model);
     }
 }
