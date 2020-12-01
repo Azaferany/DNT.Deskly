@@ -5,6 +5,7 @@ using DNT.Deskly.Validation;
 using DNT.Deskly.FluentValidation;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using DNT.Deskly.Validation.Interception;
 
 namespace DNT.Deskly.FluentValidation
 {
@@ -12,7 +13,7 @@ namespace DNT.Deskly.FluentValidation
     {
         public static FrameworkBuilder WithFluentValidation(this FrameworkBuilder builder)
         {
-            builder.Services.AddTransient(typeof(IModelValidator<>), typeof(FluentValidationModelValidator<>));
+            builder.Services.AddTransient<IMethodParameterValidator, FluentValidationMethodParameterValidator>();
             builder.Services.AddTransient<IValidatorFactory, ServiceProviderValidatorFactory>();
 
             return builder;

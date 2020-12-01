@@ -2,12 +2,15 @@ using DNT.Deskly.Extensions;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DNT.Deskly.Validation.Interception
 {
     internal sealed class ValidatableObjectMethodParameterValidator : IMethodParameterValidator
     {
-        public IEnumerable<ValidationFailure> Validate(object validatorCaller, object validatingObject)
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        public async Task<IEnumerable<ValidationFailure>> Validate(object validatorCaller, object validatingObject)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             if (validatingObject is not IValidatableObject validatable)
             {

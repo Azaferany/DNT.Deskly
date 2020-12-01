@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace DNT.Deskly.Validation.Interception
 {
-    public sealed class ValidationInterceptor : IInterceptor
+    public sealed class ValidationInterceptor : IInterceptor 
     {
         private readonly MethodInvocationValidator _validator;
         private readonly ILogger _logger;
@@ -23,7 +23,7 @@ namespace DNT.Deskly.Validation.Interception
                 .CreateLogger("DNT.Deskly.Validation.Interception");
         }
 
-        public void Intercept(IInvocation invocation)
+        public async void Intercept(IInvocation invocation)
         {
             MethodInfo method;
             try
@@ -44,8 +44,8 @@ namespace DNT.Deskly.Validation.Interception
             _logger.LogInformation(
                 $"Starting Validation: {invocation.TargetType?.FullName}.{method.Name}");
             
-            var failures = _validator.Validate(invocation.Proxy, method, invocation.Arguments);
-            var result = failures.ToResult();
+            var failures = _validator.ValidateAsync(invocation.Proxy, method, invocation.Arguments);
+            var result = (await failures).ToResult();
 
             if (!result.Failed)
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DNT.Deskly.Validation
 {
@@ -11,12 +12,16 @@ namespace DNT.Deskly.Validation
             return true;
         }
 
-        public IEnumerable<ValidationFailure> Validate(object validatorCaller, TModel model)
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        public async Task<IEnumerable<ValidationFailure>> Validate(object validatorCaller, TModel model)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             return Enumerable.Empty<ValidationFailure>();
         }
 
-        public IEnumerable<ValidationFailure> Validate(object validatorCaller, object model)
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        public async Task<IEnumerable<ValidationFailure>> Validate(object validatorCaller, object model)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             return Enumerable.Empty<ValidationFailure>();
         }

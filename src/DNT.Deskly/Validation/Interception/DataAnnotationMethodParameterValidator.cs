@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DNT.Deskly.Validation.Interception
 {
@@ -16,7 +17,9 @@ namespace DNT.Deskly.Validation.Interception
             _provider = provider ?? throw new ArgumentNullException();
         }
 
-        public IEnumerable<ValidationFailure> Validate(object validatorCaller, object validatingObject)
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        public async Task<IEnumerable<ValidationFailure>> Validate(object validatorCaller, object validatingObject)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             var failures = new List<ValidationFailure>();
 

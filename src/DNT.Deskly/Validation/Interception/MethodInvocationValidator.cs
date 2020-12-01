@@ -9,6 +9,7 @@ using DNT.Deskly.GuardToolkit;
 using DNT.Deskly.Extensions;
 using Microsoft.Extensions.Options;
 using DNT.Deskly.ReflectionToolkit;
+using System.Threading.Tasks;
 
 namespace DNT.Deskly.Validation.Interception
 {
@@ -33,7 +34,7 @@ namespace DNT.Deskly.Validation.Interception
             _failures = new List<ValidationFailure>();
         }
 
-        public IEnumerable<ValidationFailure> Validate(object validatorCaller, MethodInfo method, object[] parameterValues)
+        public async Task<IEnumerable<ValidationFailure>> ValidateAsync(object validatorCaller, MethodInfo method, object[] parameterValues)
         {
             Guard.ArgumentNotNull(method, nameof(method));
             Guard.ArgumentNotNull(parameterValues, nameof(parameterValues));
@@ -49,7 +50,7 @@ namespace DNT.Deskly.Validation.Interception
 
             for (var i = 0; i < parameters.Length; i++)
             {
-                ValidateMethodParameter(validatorCaller, parameters[i], parameterValues[i]);
+                await ValidateMethodParameterAsync(validatorCaller, parameters[i], parameterValues[i]);
             }
 
             return _failures;
@@ -60,7 +61,7 @@ namespace DNT.Deskly.Validation.Interception
         /// </summary>
         /// <param name="parameterInfo">Parameter of the method to validate</param>
         /// <param name="parameterValue">Value to validate</param>
-        private void ValidateMethodParameter(object validatorCaller, ParameterInfo parameterInfo, object parameterValue)
+        private async Task ValidateMethodParameterAsync(object validatorCaller, ParameterInfo parameterInfo, object parameterValue)
         {
             if (parameterValue == null)
             {
@@ -74,10 +75,10 @@ namespace DNT.Deskly.Validation.Interception
                 return;
             }
 
-            ValidateObjectRecursively(validatorCaller, parameterValue, 1);
+            await ValidateObjectRecursivelyAsync(validatorCaller, parameterValue, 1);
         }
 
-        private void ValidateObjectRecursively(object validatorCaller, object validatingObject, int depth)
+        private async Task ValidateObjectRecursivelyAsync(object validatorCaller, object validatingObject, int depth)
         {
             if (depth > MaxRecursiveParameterValidationDepth)
             {
@@ -99,14 +100,16 @@ namespace DNT.Deskly.Validation.Interception
                 return;
             }
 
-            SetValidationErrors(validatorCaller, validatingObject);
+            await SetValidationErrorsAsync(validatorCaller, validatingObject);
 
             // Validate items of enumerable
             if (IsEnumerable(validatingObject))
             {
                 foreach (var item in (IEnumerable) validatingObject)
                 {
-                    ValidateObjectRecursively(validatorCaller, item, depth + 1);
+                    await ValidateObjectRecursivelyAsync(validatorCaller,
+                                                         item,
+                                                         depth + 1);
                 }
             }
 
@@ -120,15 +123,15 @@ namespace DNT.Deskly.Validation.Interception
                     continue;
                 }
 
-                ValidateObjectRecursively(validatorCaller, property.GetValue(validatingObject), depth + 1);
+                await ValidateObjectRecursivelyAsync(validatorCaller, property.GetValue(validatingObject), depth + 1);
             }
         }
 
-        private void SetValidationErrors(object validatorCaller, object validatingObject)
+        private async Task SetValidationErrorsAsync(object validatorCaller, object validatingObject)
         {
             foreach (var validator in _validators)
             {
-                var failures = validator.Validate(validatorCaller, validatingObject);
+                var failures = await validator.Validate(validatorCaller, validatingObject);
                 _failures.AddRange(failures);
             }
         }

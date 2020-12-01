@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DNT.Deskly.Dependency;
 
 namespace DNT.Deskly.Validation.Interception
@@ -8,6 +9,6 @@ namespace DNT.Deskly.Validation.Interception
     /// </summary>
     public interface IMethodParameterValidator : ITransientDependency
     {
-        IEnumerable<ValidationFailure> Validate(object validatorCaller, object validatingObject);
+        Task<IEnumerable<ValidationFailure>> Validate(object validatorCaller, object validatingObject);
     }
 }

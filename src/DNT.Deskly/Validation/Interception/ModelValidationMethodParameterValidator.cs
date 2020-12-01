@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DNT.Deskly.Validation.Interception
 {
@@ -13,21 +14,21 @@ namespace DNT.Deskly.Validation.Interception
             _provider = provider ?? throw new ArgumentNullException(nameof(provider));
         }
 
-        public IEnumerable<ValidationFailure> Validate(object validatorCaller, object validatingObject)
+        public async Task<IEnumerable<ValidationFailure>> Validate(object validatorCaller, object validatingObject)
         {
             var validatorType = typeof(IModelValidator<>).MakeGenericType(validatingObject.GetType());
 
             if (_provider.GetService(validatorType) is not IModelValidator validator)
                 return Enumerable.Empty<ValidationFailure>();
 
-            var failures = validator.Validate(validatorCaller, validatingObject);
+            var failures = await validator.Validate(validatorCaller, validatingObject);
 
             validatorType = typeof(IModelValidator<,>).MakeGenericType(validatingObject.GetType(), validatorCaller.GetType());
 
             // CALL FILTERED validator BY validatorCaller
             if (_provider.GetService(validatorType) is not IModelValidator filteredValidator)
                 return Enumerable.Empty<ValidationFailure>();
-            failures.ToList().AddRange(filteredValidator.Validate(validatorCaller, validatingObject));
+            failures.ToList().AddRange(await filteredValidator.Validate(validatorCaller, validatingObject));
 
             return failures;
         }
