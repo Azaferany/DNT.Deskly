@@ -28,9 +28,6 @@ namespace DNT.Deskly.FluentValidation
 
             if (fvValidator == null) return Enumerable.Empty<ValidationFailure>();
 
-            if (fvValidator is not IModelValidator)
-                return Enumerable.Empty<ValidationFailure>();
-
 
             if (fvValidator.GetType().IsGenericType)
             {
@@ -39,9 +36,11 @@ namespace DNT.Deskly.FluentValidation
                     fvValidator.GetType().GetProperty("ValidatorCaller").SetValue(fvValidator, validatorCaller);
 
                 else if (fvValidator.GetType() == typeof(FluentModelValidator<,>).MakeGenericType(fvValidator.GetType().GenericTypeArguments))
-                    fvValidator.GetType().GetProperty("ValidatorCaller").SetValue(fvValidator, validatorCaller);
+                    fvValidator.GetType().GetProperty("ValidatorCaller").SetValue(fvValidator, validatorCaller.CastToReflected(validatorCaller.GetType()));
 
             }
+
+
 
             var Validator = await fvValidator.GetType().GetMethod("ValidateAsync").InvokeAsync(fvValidator, validatingObject);
 

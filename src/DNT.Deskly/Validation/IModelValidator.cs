@@ -6,7 +6,7 @@ using DNT.Deskly.Dependency;
 namespace DNT.Deskly.Validation
 {
     //TODO: add TValidatorCaller filter for call the Validator
-    internal interface IModelValidator<in TModel, TValidatorCaller> : IModelValidator
+    public interface IModelValidator<in TModel, TValidatorCaller> : IModelValidator
     {
         /// <summary>
         /// Validate the specified instance synchronously.

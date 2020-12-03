@@ -25,11 +25,6 @@ namespace DNT.Deskly.Validation.Interception
 
             validatorType = typeof(IModelValidator<,>).MakeGenericType(validatingObject.GetType(), validatorCaller.GetType());
 
-            // CALL FILTERED validator BY validatorCaller
-            if (_provider.GetService(validatorType) is not IModelValidator filteredValidator)
-                return Enumerable.Empty<ValidationFailure>();
-            failures.ToList().AddRange(await filteredValidator.Validate(validatorCaller, validatingObject));
-
             return failures;
         }
     }
