@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using DNT.Deskly.Caching;
 using DNT.Deskly.Eventing;
 using DNT.Deskly.Timing;
@@ -21,7 +23,6 @@ namespace DNT.Deskly
             return new FrameworkBuilder(services);
         }
     }
-
     /// <summary>
     /// Configure  DNT.Deskly services
     /// </summary>

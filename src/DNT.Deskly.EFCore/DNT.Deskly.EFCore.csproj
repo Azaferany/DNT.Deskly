@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Title>DNT.Deskly.EFCore</Title>
     <Description>DNT.Deskly is a Lightweight and Extensible Infrastructure for Building Web Applications</Description>
-    <VersionPrefix>1.1.4.3</VersionPrefix>
+    <VersionPrefix>1.1.4.4</VersionPrefix>
     <Authors>Ali Zaferany</Authors>
     <TargetFrameworks>netstandard2.1</TargetFrameworks>
     <LangVersion>latest</LangVersion>

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using DNT.Deskly.Validation;
-using DNT.Deskly.FluentValidation;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using DNT.Deskly.Validation.Interception;

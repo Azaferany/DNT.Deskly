@@ -23,6 +23,9 @@ namespace DNT.Deskly.Validation
 
             var failures = new List<ValidationFailure>();
 
+            failures.AddRange(await Validate(validatorCaller, (TModel)model));
+
+
             if (typeof(IModelValidator<,>).MakeGenericType(typeof(TModel), validatorCaller.GetType()).IsAssignableFrom(this.GetType()))
             {
                 var validatorCallerMethod = this.GetType().GetMethods().Where(x => x.Name == "Validate")
@@ -38,8 +41,6 @@ namespace DNT.Deskly.Validation
                 failures.AddRange(result);
 
             }
-
-            failures.AddRange(await Validate(validatorCaller, (TModel)model));
 
             return failures;
         }
