@@ -23,7 +23,7 @@ namespace DNT.Deskly.Validation
 
             var failures = new List<ValidationFailure>();
 
-            if (this.GetType().IsAssignableFrom(typeof(IModelValidator<>).MakeGenericType(typeof(TModel), validatorCaller.GetType())))
+            if (typeof(IModelValidator<,>).MakeGenericType(typeof(TModel), validatorCaller.GetType()).IsAssignableFrom(this.GetType()))
             {
                 var validatorCallerMethod = this.GetType().GetMethods().Where(x => x.Name == "Validate")
                 .Where(x => x.GetParameters().Where(x => x.ParameterType == validatorCaller.GetType()).FirstOrDefault() != null)
@@ -49,7 +49,10 @@ namespace DNT.Deskly.Validation
             return typeof(TModel).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo());
         }
 
-        public abstract Task<IEnumerable<ValidationFailure>> Validate(object validatorCaller, TModel model);
+        public virtual async Task<IEnumerable<ValidationFailure>> Validate(object validatorCaller, TModel model)
+        {
+            return Enumerable.Empty<ValidationFailure>();
+        }
     }
 
 }

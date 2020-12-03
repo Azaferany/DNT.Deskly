@@ -52,6 +52,7 @@ namespace DNT.Deskly
         /// </summary>
         public FrameworkBuilder WithModelValidation(Action<ValidationOptions> setupAction = null)
         {
+            //TODO: auto regester IModelValidation class
             Services.AddTransient<ValidationInterceptor>();
             Services.AddTransient<MethodInvocationValidator>();
             Services.AddTransient<IMethodParameterValidator, DataAnnotationMethodParameterValidator>();
