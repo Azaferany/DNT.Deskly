@@ -22,7 +22,7 @@ namespace DNT.Deskly.EFCore.Services.Application
         ICrudService<TEntity>, IQueryableService<TEntity>
         where TEntity : class, IEntity
     {
-        protected CrudService(IUnitOfWork uow, IEventBus bus) : base(uow, bus)
+        public CrudService(IUnitOfWork uow, IEventBus bus) : base(uow, bus)
         {
         }
     }

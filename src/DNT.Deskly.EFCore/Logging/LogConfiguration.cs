@@ -7,19 +7,13 @@ namespace DNT.Deskly.EFCore.Logging
 {
     public static class ModelBuilderExtensions
     {
-        public static void ApplyLogConfiguration(this ModelBuilder builder)
+        public static void ApplyLogConfiguration(this ModelBuilder modelBuilder, string tableName = nameof(Log), string schema = "dbo")
         {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
+            if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
 
-            builder.ApplyConfiguration(new LogConfiguration());
-        }
-    }
+            var builder = modelBuilder.Entity<Log>();
 
-    public class LogConfiguration : IEntityTypeConfiguration<Log>
-    {
-        public void Configure(EntityTypeBuilder<Log> builder)
-        {
-            builder.ToTable(nameof(Log), "dbo");
+            builder.ToTable(tableName, schema);
 
             builder.HasIndex(e => e.LoggerName).HasDatabaseName("IX_Log_LoggerName");
             builder.HasIndex(e => e.Level).HasDatabaseName("IX_Log_Level");
@@ -37,5 +31,6 @@ namespace DNT.Deskly.EFCore.Logging
             builder.Property(a => a.TenantName).HasMaxLength(256);
             builder.Property(a => a.ImpersonatorTenantId).HasMaxLength(256);
         }
+
     }
 }

@@ -100,8 +100,6 @@ namespace DNT.Deskly.Logging
             {
                 try
                 {
-                    _queue.Add(item, _cancellationTokenSource.Token);
-
                     if (!_queue.TryAdd(item, 0, _cancellationTokenSource.Token))
                     {
                         Interlocked.Increment(ref _messagesDropped);
